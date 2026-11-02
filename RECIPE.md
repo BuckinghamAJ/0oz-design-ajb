@@ -22,6 +22,8 @@ Left to right, on a `chrome` (#0e0e0e) window:
 
 Colours (theme `0oz`): background #161616, canvas #111111, chrome #0e0e0e, surface #151515, popover #1b1b1b, raised #1e1e1e, hover #1f1f1f, selected #262626, border #242424, input #2c2c2c, foreground #f5f5f5, muted #a3a3a3, dim #7a7a7a, accent #737373. Status: working #fbbf24, blocked #f87171, done #34d399, idle #737373.
 
+Colours (theme `0oz-one-dark`, the default dark theme): the same roles in One Dark Pro, matching the Herdr TUI and Ghostty. background #282c34; chrome, canvas, surface and popover #21252b; raised and hover #2c313a, selected #323842, border #181a1f, input #3e4452, foreground #abb2bf, muted #9da5b4, dim #7f848e, accent #61afef. Status: working #e5c07b, blocked #e06c75, done #98c379, idle #7f848e.
+
 ## How it behaves
 
 - **Working:** a spinning ring in the tab and in the pane header (and a spinner on the agent row). **Blocked:** a red dot on the tab, a red "Needs you" badge in the pane header. **Done:** a green dot on the tab and in the header. **Idle:** nothing extra.
@@ -29,11 +31,11 @@ Colours (theme `0oz`): background #161616, canvas #111111, chrome #0e0e0e, surfa
 - **Two or more:** every pane gets a 38px header with the agent icon, the name (foreground when the pane has the keyboard, `dim` otherwise), outlined badges for the folder and the git branch, and the status. Hovering a header shows split right, split down, zoom and close. Panes are squared off and divided by a 1px `border`-coloured line. Clicking a header focuses its pane.
 - **Tabs:** click selects, double-click renames, right-click opens the tab menu, dragging one onto another reorders, the mouse wheel steps through them, `+` opens the new-terminal menu. The Files/Changes choice is remembered per space.
 - **Sidebar:** the New space button runs `space.new`, the search buttons open the picker, the toggle collapses the sidebar to 44px (icons only).
-- Keys are untouched. Suggested additions: `ctrl-shift-5` for `pane.split:right` and `ctrl-shift-'` for `pane.split:down`.
+- Keys are untouched. `oz-tabs` takes key commands for the side panel: `oz-tabs.files` and `oz-tabs.changes` open that panel, `oz-tabs.toggle` hides it or brings back the last one shown (for example `"cmd-shift-e": "oz-tabs.files"` in `keys.json`). Suggested additions: `ctrl-shift-5` for `pane.split:right` and `ctrl-shift-'` for `pane.split:down`.
 
 ## Built from
 
-- Layout `0oz-design` (`layouts/0oz-design.json`), root row: `background` chrome, `theme` `{light: paper, dark: 0oz}`, `terminal_padding` [10, 8], `titlebar` none, `traffic_lights` [12, 16], no divider.
+- Layout `0oz-design` (`layouts/0oz-design.json`), root row: `background` chrome, `theme` `{light: paper, dark: 0oz-one-dark}`, `terminal_padding` [10, 8], `titlebar` none, `traffic_lights` [12, 16], no divider.
   - `sidebar` column 256px, min 44, max 480, `chrome`, not resizable: `brand` block 48px (`oz-chrome`, `window_drag`), `sidebar-lists` column holding `spaces` (`oz-spaces`, weight 1, min 90) and `agents` (shipped `agents`, weight 1, min 90), then `sidebar-footer` block 132px (`oz-chrome` with props `{footer: true}`).
   - `work` column, padding 6, gap 4, not resizable, holding `inset` column (`background` background, radius 12, border 1px `border`, shadow `sm`) and the `status` block 26px (`oz-status`).
   - `inset` holds `tabs` block 48px (`oz-tabs`, `window_drag`) and `work-body` row (padding 0, gap 1, background `border`).

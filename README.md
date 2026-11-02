@@ -18,10 +18,12 @@ Tested on Herdr 0.1.7. Copy the files into your Herdr home, then switch to the l
 ```sh
 git clone https://github.com/0OZ/0oz-design && cd 0oz-design
 cp layouts/0oz-design.json ~/.config/herdr-app/layouts/
-cp themes/0oz.json ~/.config/herdr-app/themes/
+cp themes/*.json ~/.config/herdr-app/themes/
 cp -R mods/oz-* ~/.config/herdr-app/mods/
 herdr-app do layout.switch '{"name":"0oz-design"}'
 ```
+
+The dark theme is `0oz-one-dark`, the One Dark Pro palette from Ghostty and the Herdr TUI mapped onto 0oz's roles. For the original neutral grays, set the layout's `"dark"` theme to `0oz`.
 
 `ctrl-shift-l` switches back to your previous layout, and deleting the copied files removes this one.
 

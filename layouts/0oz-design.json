@@ -187,7 +187,7 @@
   "background": "chrome",
   "theme": {
     "light": "paper",
-    "dark": "0oz"
+    "dark": "0oz-one-dark"
   },
   "terminal_padding": [
     10,

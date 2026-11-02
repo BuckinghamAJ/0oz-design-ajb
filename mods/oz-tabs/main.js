@@ -2,7 +2,7 @@
 // Modified by 0OZ: segmented tab pill, outlined Files and Changes buttons, no bar background.
 import { View, div, svg, image } from "gpui-kit";
 import { h_flex } from "gpui-base";
-import { spaces, panes, run, openOverlay, theme, window, shared, layout } from "herdr";
+import { spaces, panes, run, openOverlay, theme, window, shared, layout, nextCommand } from "herdr";
 
 const TAB_H = 26; // inside the 2px padding of the pill, so the pill is 30px
 const CLEAR = "#00000000";
@@ -17,9 +17,19 @@ function find(node, id) {
 }
 
 export default class Tabs extends View {
-  init() {
+  init(_props, cx) {
     this.pressed = null;
     this.panels = JSON.parse(localStorage.getItem("panels") ?? "{}");
+    // Keys: `oz-tabs.files` / `oz-tabs.changes` open that panel, `oz-tabs.toggle` hides it
+    // or brings back the one that was last shown.
+    cx.spawn(async (cx) => {
+      for (;;) {
+        const c = await nextCommand();
+        if (c === "files" || c === "changes") { run("layout.select", { stack: "panel-body", child: c }); run("layout.show", { id: "panel" }); }
+        else if (c === "toggle") run(find(layout(), "panel")?.hidden ? "layout.show" : "layout.hide", { id: "panel" });
+        cx.notify();
+      }
+    });
   }
 
   // The side panel is remembered per space: switching shows that space's choice
